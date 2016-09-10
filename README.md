@@ -5,4 +5,3 @@ TODO: Add an integration test using https://www.elastic.co/guide/en/elasticsearc
 
 TODO: Add a way where we can change the index name everytime a new document is indexed
 
-TODO: Fix the .gitignore
