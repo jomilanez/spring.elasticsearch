@@ -12,6 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,7 +31,8 @@ public class ArticleRepositoryEmbeddedTest {
     public void indexSimpleDocument() throws IOException {
         repository.save(new Article("id", "title", "text"));
 
-        GetResponse fields = getClient().prepareGet("articles", "article", "id").execute().actionGet();
+        String indexName = "articles-" + ZonedDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        GetResponse fields = getClient().prepareGet(indexName, "article", "id").execute().actionGet();
         assertThat(fields.getSource().get("title")).isEqualTo("title");
         assertThat(fields.getSource().get("description")).isEqualTo("text");
     }
