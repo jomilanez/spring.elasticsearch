@@ -12,13 +12,13 @@ import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
 class EmbeddedElasticsearchServer {
 
-    private static final String DEFAULT_DATA_DIRECTORY = "target/elasticsearch-data";
+    private static final String ELASTIC_SEARH_FOLDER = "target/elasticsearch";
 
     private final Node node;
     private final String dataDirectory;
 
     EmbeddedElasticsearchServer() {
-        this(DEFAULT_DATA_DIRECTORY);
+        this(ELASTIC_SEARH_FOLDER);
     }
 
     private EmbeddedElasticsearchServer(String dataDirectory) {
@@ -26,6 +26,7 @@ class EmbeddedElasticsearchServer {
 
         Settings.Builder elasticsearchSettings = Settings.settingsBuilder()
                 .put("http.enabled", "false")
+                .put("path.data", dataDirectory + "/data")
                 .put("path.home", dataDirectory);
 
         node = nodeBuilder()
